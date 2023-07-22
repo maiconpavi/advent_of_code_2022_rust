@@ -1,0 +1,22 @@
+[package]
+name = "advent_of_code_2022_rust"
+version = "0.1.0"
+edition = "2021"
+
+[[workspaces]]
+members = "days/*"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+
+[dependencies]
+day_01 = { path = "days/day_01" }
+day_02 = { path = "days/day_02" }
+day_03 = { path = "days/day_03" }
+day_04 = { path = "days/day_04" }
+day_05 = { path = "days/day_05" }
+day_06 = { path = "days/day_06" }
+
+
+[dev-dependencies]
+insta = "1.31.0"
