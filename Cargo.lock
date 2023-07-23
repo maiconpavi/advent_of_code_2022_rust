@@ -12,6 +12,7 @@ dependencies = [
  "day_04",
  "day_05",
  "day_06",
+ "day_07",
  "insta",
 ]
 
@@ -49,6 +50,10 @@ version = "0.1.0"
 
 [[package]]
 name = "day_06"
+version = "0.1.0"
+
+[[package]]
+name = "day_07"
 version = "0.1.0"
 
 [[package]]
