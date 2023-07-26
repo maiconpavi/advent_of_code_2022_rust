@@ -1,4 +1,4 @@
-use std::collections::{BTreeMap, HashMap};
+use std::collections::BTreeMap;
 
 #[must_use]
 pub fn calc_a(input: &str) -> String {
@@ -35,7 +35,7 @@ struct Procedure {
 }
 
 impl Stacks {
-    fn new() -> Self {
+    const fn new() -> Self {
         Self {
             stacks: BTreeMap::new(),
         }
