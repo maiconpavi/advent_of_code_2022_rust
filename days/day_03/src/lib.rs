@@ -15,7 +15,7 @@ pub fn calc_a(input: &str) -> String {
                 c2.chars().collect::<HashSet<char>>(),
             );
             let item = s1.intersection(&s2).next()?;
-            char_to_priority(item)
+            char_to_priority(*item)
         })
         .sum::<u64>()
         .to_string()
@@ -37,17 +37,17 @@ pub fn calc_b(input: &str) -> String {
                 .first()?
                 .iter()
                 .find(|c| sets.iter().all(|s| s.contains(c)))?;
-            char_to_priority(item)
+            char_to_priority(*item)
         })
         .sum::<u64>()
         .to_string()
 }
 
 #[must_use]
-fn char_to_priority(c: &char) -> Option<u64> {
+fn char_to_priority(c: char) -> Option<u64> {
     Some(match c {
-        'a'..='z' => u64::from(*c) - LOWER_A_DEC + 1,
-        'A'..='Z' => u64::from(*c) - UPPER_A_DEC + 27,
+        'a'..='z' => u64::from(c) - LOWER_A_DEC + 1,
+        'A'..='Z' => u64::from(c) - UPPER_A_DEC + 27,
         _ => return None,
     })
 }
