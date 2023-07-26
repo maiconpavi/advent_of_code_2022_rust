@@ -1,15 +1,14 @@
 #[must_use]
 pub fn calc_a(input: &str) -> String {
     input
-        .split("\n")
+        .split('\n')
         .filter(|line| !line.is_empty())
-        .map(|line| {
-            let (s1, s2) = line
-                .split_once(" ")
-                .map(|(s1, s2)| (Shape::from(s1), Shape::from(s2)))
-                .unwrap_or_else(|| panic!("Invalid line: {}", line));
-            let round_result = s2.wins(&s1);
-            u64::from(s2.shape_score() + round_result.round_score())
+        .filter_map(|line| {
+            let (s1, s2) = line.split_once(' ').and_then(|(s1, s2)| {
+                Some((Shape::try_from(s1).ok()?, Shape::try_from(s2).ok()?))
+            })?;
+            let round_result = s2.wins(s1);
+            Some(u64::from(s2.shape_score() + round_result.round_score()))
         })
         .sum::<u64>()
         .to_string()
@@ -18,13 +17,12 @@ pub fn calc_a(input: &str) -> String {
 #[must_use]
 pub fn calc_b(input: &str) -> String {
     input
-        .split("\n")
+        .split('\n')
         .filter(|line| !line.is_empty())
-        .map(|line| {
-            let (s1, mut s2) = line
-                .split_once(" ")
-                .map(|(s1, s2)| (Shape::from(s1), Shape::from(s2)))
-                .unwrap_or_else(|| panic!("Invalid line: {}", line));
+        .filter_map(|line| {
+            let (s1, mut s2) = line.split_once(' ').and_then(|(s1, s2)| {
+                Some((Shape::try_from(s1).ok()?, Shape::try_from(s2).ok()?))
+            })?;
             let round_result = match &s2 {
                 Shape::Rock => RoundResult::Loss,
                 Shape::Paper => RoundResult::Draw,
@@ -44,7 +42,7 @@ pub fn calc_b(input: &str) -> String {
                 },
             };
 
-            u64::from(s2.shape_score() + round_result.round_score())
+            Some(u64::from(s2.shape_score() + round_result.round_score()))
         })
         .sum::<u64>()
         .to_string()
@@ -65,34 +63,35 @@ enum RoundResult {
 }
 
 impl Shape {
-    fn shape_score(&self) -> u8 {
-        *self as u8
+    const fn shape_score(self) -> u8 {
+        self as u8
     }
 
-    fn wins(&self, other: &Self) -> RoundResult {
+    fn wins(self, other: Self) -> RoundResult {
         match (self, other) {
-            (a, b) if *a == *b => RoundResult::Draw,
-            (Shape::Rock, Shape::Scissors) => RoundResult::Win,
-            (Shape::Paper, Shape::Rock) => RoundResult::Win,
-            (Shape::Scissors, Shape::Paper) => RoundResult::Win,
+            (a, b) if a == b => RoundResult::Draw,
+            (Self::Rock, Self::Scissors)
+            | (Self::Paper, Self::Rock)
+            | (Self::Scissors, Self::Paper) => RoundResult::Win,
             _ => RoundResult::Loss,
         }
     }
 }
 
-impl From<&str> for Shape {
-    fn from(shape: &str) -> Self {
+impl TryFrom<&str> for Shape {
+    type Error = String;
+    fn try_from(shape: &str) -> Result<Self, Self::Error> {
         match shape {
-            "A" | "X" => Shape::Rock,
-            "B" | "Y" => Shape::Paper,
-            "C" | "Z" => Shape::Scissors,
-            _ => panic!("Invalid shape: {}", shape),
+            "A" | "X" => Ok(Self::Rock),
+            "B" | "Y" => Ok(Self::Paper),
+            "C" | "Z" => Ok(Self::Scissors),
+            _ => Err(format!("Invalid shape: {shape}")),
         }
     }
 }
 
 impl RoundResult {
-    pub fn round_score(&self) -> u8 {
-        *self as u8
+    pub const fn round_score(self) -> u8 {
+        self as u8
     }
 }
