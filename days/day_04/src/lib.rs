@@ -28,12 +28,12 @@ struct Range(u64, u64);
 
 impl Range {
     #[must_use]
-    fn fully_contains(&self, other: &Self) -> bool {
+    const fn fully_contains(&self, other: &Self) -> bool {
         self.0 <= other.0 && self.1 >= other.1
     }
 
     #[must_use]
-    fn contains(&self, other: &Self) -> bool {
+    const fn contains(&self, other: &Self) -> bool {
         self.0 <= other.1 && self.1 >= other.0
     }
 }
