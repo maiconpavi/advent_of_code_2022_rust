@@ -1,4 +1,8 @@
-const fn main() {}
+fn main() {
+    let grid = day_09::get_grid::<9>(include_str!("../inputs/day_09/input.txt"));
+    let visualization = grid.get_visualization();
+    std::fs::write("test_visualization_3.txt", visualization).expect("failed to write file");
+}
 
 #[cfg(test)]
 mod tests {
