@@ -18,6 +18,7 @@ day_05 = { path = "days/day_05" }
 day_06 = { path = "days/day_06" }
 day_07 = { path = "days/day_07" }
 day_08 = { path = "days/day_08" }
+day_09 = { path = "days/day_09" }
 
 
 [dev-dependencies]

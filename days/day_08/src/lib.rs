@@ -1,5 +1,3 @@
-use std::cmp::Ordering;
-
 #[must_use]
 pub fn calc_a(input: &str) -> String {
     let matrix = Matrix::from(input);
@@ -105,7 +103,7 @@ fn get_reach(value: u32, arr: Vec<&u32>) -> usize {
     for v in arr {
         count += 1;
 
-        if v >= &value {
+        if *v >= value {
             break;
         }
     }

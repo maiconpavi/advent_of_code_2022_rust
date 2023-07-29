@@ -87,6 +87,7 @@ mod tests {
             (day_06::calc_a, day_06::calc_b).into(),
             (day_07::calc_a, day_07::calc_b).into(),
             (day_08::calc_a, day_08::calc_b).into(),
+            (day_09::calc_a, day_09::calc_b).into(),
         ];
         for (day, functions) in days.into_iter().enumerate() {
             test_day(functions, day + 1);
