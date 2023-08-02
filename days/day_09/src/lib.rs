@@ -98,8 +98,7 @@ impl<const TAIL_LEN: usize> Grid<TAIL_LEN> {
     #[must_use]
     pub fn get_visualization(&self) -> String {
         let cords = self.grid_points();
-        let (min_x, min_y) = (cords.0.x, cords.0.y);
-        let (max_x, max_y) = (cords.1.x, cords.1.y);
+
         let mut buf = String::from("== Initial State ==\n\n");
         buf.push_str(
             &GridState {
@@ -115,6 +114,10 @@ impl<const TAIL_LEN: usize> Grid<TAIL_LEN> {
         }
         buf.push_str("\n\n== Visited by Last Knot ==\n\n");
         let visited_cords = self.get_last_knot_visited_cords();
+
+        let (min_x, min_y) = (cords.0.x, cords.0.y);
+        let (max_x, max_y) = (cords.1.x, cords.1.y);
+
         for y in (min_y..=max_y).rev() {
             for x in min_x..=max_x {
                 let cord = Cord { x, y };
