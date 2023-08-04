@@ -20,10 +20,14 @@ day_07 = { path = "days/day_07" }
 day_08 = { path = "days/day_08" }
 day_09 = { path = "days/day_09" }
 day_10 = { path = "days/day_10" }
+day_11 = { path = "days/day_11" }
 
 
 [dev-dependencies]
 insta = "1.31.0"
 
 [profile.release]
+opt-level = 3
+
+[profile.test]
 opt-level = 3
