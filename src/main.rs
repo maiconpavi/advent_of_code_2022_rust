@@ -80,9 +80,8 @@ mod tests {
         }
     }
 
-    #[test]
-    fn test_days() {
-        let days = [
+    fn get_days() -> Vec<Day> {
+        [
             (day_01::calc_a, day_01::calc_b).into(),
             (day_02::calc_a, day_02::calc_b).into(),
             (day_03::calc_a, day_03::calc_b).into(),
@@ -94,9 +93,25 @@ mod tests {
             (day_09::calc_a, day_09::calc_b).into(),
             (day_10::calc_a, day_10::calc_b).into(),
             (day_11::calc_a, day_11::calc_b).into(),
-        ];
+        ]
+        .into()
+    }
+
+    #[test]
+    fn test_days_wo_last() {
+        let mut days = get_days();
+        days.pop(); // skip last day
+
         for (day, functions) in days.into_iter().enumerate() {
             test_day(functions, day + 1);
         }
+    }
+
+    #[test]
+    fn test_last_day() {
+        let mut days = get_days();
+        let len = days.len();
+        let day = days.pop().expect("no days");
+        test_day(day, len);
     }
 }
