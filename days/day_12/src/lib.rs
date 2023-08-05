@@ -20,7 +20,6 @@ pub fn calc_b(input: &str) -> String {
 
 struct HeightMap {
     squares: Vec<Vec<Square>>,
-    source: Cord,
     destiny: Cord,
     edges: HashMap<Cord, Vec<Cord>>,
 }
@@ -37,26 +36,16 @@ enum Square {
 
 impl HeightMap {
     fn new(squares: Vec<Vec<Square>>) -> Result<Self, String> {
-        let mut source = None;
         let mut destiny = None;
         let mut edges = HashMap::new();
 
         for (y, row) in squares.iter().enumerate() {
             for (x, square) in row.iter().enumerate() {
-                match square {
-                    Square::Source => {
-                        if source.is_some() {
-                            return Err("Multiple sources".to_string());
-                        }
-                        source = Some(Cord(x, y));
+                if matches!(square, Square::Destiny) {
+                    if destiny.is_some() {
+                        return Err("Multiple destinies".to_string());
                     }
-                    Square::Destiny => {
-                        if destiny.is_some() {
-                            return Err("Multiple destinies".to_string());
-                        }
-                        destiny = Some(Cord(x, y));
-                    }
-                    Square::Other(_) => {}
+                    destiny = Some(Cord(x, y));
                 }
                 let cord = Cord(x, y);
                 edges.insert(cord, cord.neighbors(row.len(), squares.len()));
@@ -78,7 +67,6 @@ impl HeightMap {
 
         Ok(Self {
             squares,
-            source: source.ok_or_else(|| "No source".to_string())?,
             destiny: destiny.ok_or_else(|| "No destiny".to_string())?,
             edges,
         })
