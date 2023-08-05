@@ -1,6 +1,5 @@
-use std::{cmp::Reverse, collections::VecDeque, sync::RwLock};
+use std::{cmp::Reverse, collections::VecDeque};
 
-static SECONDS: RwLock<f32> = RwLock::new(0.0);
 static THRESHOLD: u64 = u32::MAX as u64 - 1;
 
 #[must_use]
@@ -13,6 +12,7 @@ pub fn calc_b(input: &str) -> String {
     execute_program(input, 10000, None).to_string()
 }
 
+#[allow(clippy::iter_with_drain)]
 fn execute_program(input: &str, rounds: usize, divide_by: Option<u64>) -> usize {
     let mut monkeys = parse_monkeys(input);
     let items_len = monkeys.iter().map(|m| m.items.len()).sum::<usize>();
@@ -36,7 +36,6 @@ fn execute_program(input: &str, rounds: usize, divide_by: Option<u64>) -> usize 
             monkeys[dest].items.push_back(value);
         });
     }
-    println!("seconds: {}", SECONDS.read().unwrap());
 
     monkeys_count.sort_by_key(|c| Reverse(*c));
     monkeys_count[..2]

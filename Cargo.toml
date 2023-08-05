@@ -21,6 +21,7 @@ day_08 = { path = "days/day_08" }
 day_09 = { path = "days/day_09" }
 day_10 = { path = "days/day_10" }
 day_11 = { path = "days/day_11" }
+day_12 = { path = "days/day_12" }
 
 
 [dev-dependencies]

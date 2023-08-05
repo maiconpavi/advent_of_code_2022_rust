@@ -93,6 +93,7 @@ mod tests {
             (day_09::calc_a, day_09::calc_b).into(),
             (day_10::calc_a, day_10::calc_b).into(),
             (day_11::calc_a, day_11::calc_b).into(),
+            (day_12::calc_a, day_12::calc_b).into(),
         ]
         .into()
     }
