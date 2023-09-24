@@ -19,6 +19,7 @@ dependencies = [
  "day_11",
  "day_12",
  "day_13",
+ "day_14",
  "insta",
 ]
 
@@ -111,6 +112,10 @@ dependencies = [
  "nom-supreme",
  "nom_locate",
 ]
+
+[[package]]
+name = "day_14"
+version = "0.1.0"
 
 [[package]]
 name = "encode_unicode"

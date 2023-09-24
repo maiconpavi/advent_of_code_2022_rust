@@ -6,7 +6,6 @@ pub fn calc_a(input: &str) -> String {
         .into_iter()
         .filter_map(|cycle| program.x_signal_strength(cycle))
         .collect::<Vec<_>>();
-    println!("{values:?}");
     values.iter().sum::<isize>().to_string()
 }
 
